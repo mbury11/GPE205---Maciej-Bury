@@ -51,5 +51,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "GPE205 - Maciej Bury.sln"
+    "dotnet.defaultSolution": "GPE205v2.sln"
 }

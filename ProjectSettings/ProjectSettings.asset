@@ -4,7 +4,7 @@
 PlayerSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 26
-  productGUID: f11032cada9e0d14c83787b902cc9eb0
+  productGUID: 7f9a7913ed189074fb9275afeb8d11b6
   AndroidProfiler: 0
   AndroidFilterTouchesWhenObscured: 0
   AndroidEnableSustainedPerformanceMode: 0
@@ -13,7 +13,7 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: DefaultCompany
-  productName: GPE205 - Maciej Bury
+  productName: GPE205v2
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
@@ -676,14 +676,14 @@ PlayerSettings:
   apiCompatibilityLevelPerPlatform: {}
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
-  metroPackageName: GPE205 - Maciej Bury
+  metroPackageName: GPE205v2
   metroPackageVersion: 
   metroCertificatePath: 
   metroCertificatePassword: 
   metroCertificateSubject: 
   metroCertificateIssuer: 
   metroCertificateNotAfter: 0000000000000000
-  metroApplicationDescription: GPE205 - Maciej Bury
+  metroApplicationDescription: GPE205v2
   wsaImages: {}
   metroTileShortName: 
   metroTileShowName: 0
@@ -752,10 +752,10 @@ PlayerSettings:
   apiCompatibilityLevel: 6
   activeInputHandler: 0
   windowsGamepadBackendHint: 0
-  cloudProjectId: 8b40dd0c-6f29-4275-a785-4eba911ac48e
+  cloudProjectId: ac8b8a0d-9657-43a2-9f5c-f84b2137309d
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: GPE205 - Maciej Bury 2024-10-20_20-39-23
+  projectName: GPE205v2
   organizationId: mbury11
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
