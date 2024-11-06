@@ -1,0 +1,41 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class ComputerController : Controller
+{
+    public GameObject target;
+    
+    
+    // Start is called before the first frame update
+    public override void Start()
+    {
+    base.Start();  
+    }
+
+    // Update is called once per frame
+    public override void Update()
+    {
+    base.Update();   
+    }
+
+    public override void ProcessInputs()
+    {
+        
+    }
+
+    public void DoSeekState()
+    {
+        // Seek our target
+        Seek(target);
+    }
+
+    public void Seek (GameObject target)
+    {
+        // RotateTowards the Funciton
+        pawn.RotateTowards(target.transform.position);
+        // Move Forward
+        pawn.MoveForward();
+    }
+
+}

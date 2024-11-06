@@ -170,6 +170,16 @@ MonoBehaviour:
   turnSpeed: 360
   moveSpeed: 5
   mover: {fileID: 0}
+  fireRate: 0
+  shotsPerSecond: 0
+  shooter: {fileID: 0}
+  shellPrefab: {fileID: 0}
+  fireForce: 0
+  damageDone: 0
+  shellLifespan: 0
+  timerDelay: 5
+  playerTank: {fileID: 0}
+  computerSpeed: 5
 --- !u!114 &4218005900365761471
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -206,3 +216,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 502da2073c66e63408eb138f49c7eacf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  prefab: {fileID: 0}
+  firepointTransform: {fileID: 0}

@@ -5,61 +5,89 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    // Awake is called when the object is first created, before the Start even runs.
+
     private void Awake()
     {
-        // If the instead doesn't exist
         if (instance == null)
         {
             instance = this;
-            // Don't destroy it if we load a new scene
             DontDestroyOnLoad(gameObject);
         }
         else
         {
-            // Otherwise, there is already an instance, so destroy this gameObject
             Destroy(gameObject);
         }
     }
 
-
-
-    //Start is called before the first frame update
     void Start()
     {
-        // temp code for now so SpawnPlayer() can function
+        SpawnPlayer();
+        SpawnAITanks(); // Call to spawn AI Tanks
     }
-/* 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    } */
 
-    // prefabs
     public GameObject playerControllerPrefab;
     public GameObject tankPawnPrefab;
+    public GameObject playerAIControllerPrefab;
+    public GameObject tankAIPawnPrefab;
 
-    //location of playerSpawnTransform
     public Transform playerSpawnTransform;
-    
+    public Transform computerSpawnTransform;
+
     public void SpawnPlayer()
     {
-    //spawn the player controller at 0,0,0 with no rotation
-    GameObject newPlayerObj = Instantiate(playerControllerPrefab, Vector3.zero, Quaternion.identity) as GameObject;
-    
-    
-    //Spawn the pawn and connect it to the controller
-    GameObject newPawnObj = Instantiate(tankPawnPrefab, playerSpawnTransform.position, playerSpawnTransform.rotation) as GameObject;
-    
-    //Get the Player Controller component and Pawn component.
-    Controller newController = newPlayerObj.GetComponent<Controller>();
-    Pawn newPawn = newPawnObj.GetComponent<Pawn>();
-    
-    //Hooked up gameobject with pawn
-    newController.pawn = newPawn;
+        if (playerControllerPrefab == null)
+        {
+            Debug.LogError("Player Controller Prefab is not assigned!");
+            return;
+        }
+
+        GameObject newPlayerObj = Instantiate(playerControllerPrefab, Vector3.zero, Quaternion.identity) as GameObject;
+        Debug.Log("Player Controller instantiated successfully.");
+
+        if (tankPawnPrefab == null)
+        {
+            Debug.LogError("Tank Pawn Prefab is not assigned!");
+            return;
+        }
+
+        if (playerSpawnTransform == null)
+        {
+            Debug.LogError("Player Spawn Transform is not assigned!");
+            return;
+        }
+
+        GameObject newPawnObj = Instantiate(tankPawnPrefab, playerSpawnTransform.position, playerSpawnTransform.rotation) as GameObject;
+        Debug.Log("Tank Pawn instantiated successfully.");
+
+        Controller newController = newPlayerObj.GetComponent<Controller>();
+        Pawn newPawn = newPawnObj.GetComponent<Pawn>();
+
+        if (newController == null || newPawn == null)
+        {
+            Debug.LogError("Failed to retrieve Controller or Pawn component.");
+            return;
+        }
+
+        newController.pawn = newPawn;
     }
 
-    // List that holds our player(s)
+    public void SpawnAITanks()
+    {
+        if (playerAIControllerPrefab == null || tankAIPawnPrefab == null || computerSpawnTransform == null)
+        {
+            Debug.LogError("AI Prefabs or Spawn Transform are not assigned!");
+            return;
+        }
+
+        for (int i = 0; i < 1; i++) // Spawning 1 AI Tanks
+        {
+            GameObject newAIController = Instantiate(playerAIControllerPrefab, Vector3.zero, Quaternion.identity) as GameObject;
+            GameObject newAIPawn = Instantiate(tankAIPawnPrefab, computerSpawnTransform.position, computerSpawnTransform.rotation) as GameObject;
+
+            Debug.Log("AI Tank instantiated successfully.");
+            
+        }
+    }
+
     public List<PlayerController> players;
 }
