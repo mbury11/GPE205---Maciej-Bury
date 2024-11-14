@@ -17,6 +17,7 @@ public class TankPawn : Pawn
         timeUntilNextEvent = timerDelay;
         tf = GetComponent<Transform>();
         rb = GetComponent<Rigidbody>(); // Initialize Rigidbody
+        shooter = GetComponent<Shooter>();
         direction = tf.forward; // Now this will work correctly
         timeUntilNextEvent = Time.time + 1 / fireRate;
     }
