@@ -9,6 +9,8 @@ public class TankPawn : Pawn
     private Transform tf; // A variable to hold our Transform component
     private Rigidbody rb; // Declare Rigidbody
     private Vector3 direction;
+    public AudioClip cannonAudio;
+    private AudioSource audioSource;
 
     // Start is called before the first frame update
     public override void Start()
@@ -20,6 +22,7 @@ public class TankPawn : Pawn
         shooter = GetComponent<Shooter>();
         direction = tf.forward; // Now this will work correctly
         timeUntilNextEvent = Time.time + 1 / fireRate;
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -81,6 +84,11 @@ public class TankPawn : Pawn
         {shooter.Shoot(shellPrefab, fireForce, damageDone, shellLifespan);
         timeUntilNextEvent = Time.time + 1 / fireRate;
         Debug.Log("Tank has shot!");
+        }
+        //play audio source
+        if (audioSource != null && cannonAudio != null)
+        {
+            audioSource.PlayOneShot(cannonAudio);
         }
     } 
 

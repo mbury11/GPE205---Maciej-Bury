@@ -27,6 +27,10 @@ public abstract class Pawn : MonoBehaviour
 
     //variable for noisemaker
     public NoiseMaker noiseMaker;
+
+    public Controller controller;
+
+    public int rewardPoints;
     
 
     //variable for our shell prefab

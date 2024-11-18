@@ -50,4 +50,5 @@ MonoBehaviour:
   - {fileID: 8374462706338734765, guid: c4bd6ceee476cc348bf9b16219f1b623, type: 3}
   - {fileID: 7501737453292628270, guid: 684fca605cefe3142aecab27a0d4c065, type: 3}
   - {fileID: 6239151796455448815, guid: 192f92c3f71edce439835a7708a81287, type: 3}
+  - {fileID: 1580160556885928203, guid: 0241965cac37da244ba7ede4fc99b327, type: 3}
   pawnSpawnPoints: []

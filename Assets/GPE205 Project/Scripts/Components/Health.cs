@@ -6,13 +6,16 @@ public class Health : MonoBehaviour
 {
     public float currentHealth;
     public float maxHealth;
+    public AudioClip damageAudio;
+    private AudioSource audioSource;
     
     // Start is called before the first frame update
     void Start()
     {
     // Setting Health to max
     currentHealth = maxHealth;
-    currentHealth = Mathf.Clamp (currentHealth, 0, maxHealth);
+    // Initialize the audio source
+    audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -21,22 +24,45 @@ public class Health : MonoBehaviour
         
     }
 
-    public void TakeDamage (float amount, Pawn source)
+    public void TakeDamage(float amount, Pawn source)
+{
+    currentHealth -= amount;
+    Debug.Log(source.name + " did " + amount + " damage to " + gameObject.name);
+    currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+    
+    if (damageAudio != null) // Null check for damageAudio
     {
-        currentHealth = currentHealth - amount;
-        Debug.Log(source.name + "did" + amount + "damage to" + gameObject.name);
-        if (currentHealth <= 0)
-        {
-            Die (source);
-        }
+        audioSource.PlayOneShot(damageAudio); // Use the initialized audioSource
     }
+    else
+    {
+        Debug.LogWarning("Damage audio clip is not assigned.");
+    }
+    
+    if (currentHealth <= 0)
+    {
+        Die(source);
+    }
+}
+
+
 
     public void Heal (float amount, Pawn source)
     {
-        currentHealth = currentHealth + amount;
+        currentHealth += amount;
+        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
     }
-    public void Die (Pawn source)
+    
+    
+    public void Die(Pawn source)
+{
+    Destroy(gameObject);
+    Pawn pawnComponent = gameObject.GetComponent<Pawn>();
+    if (pawnComponent != null)
     {
-        Destroy(gameObject);
+        int scoreToAdd = pawnComponent.rewardPoints;
+        source.controller.AddToScore(scoreToAdd);
     }
+}
+
 }

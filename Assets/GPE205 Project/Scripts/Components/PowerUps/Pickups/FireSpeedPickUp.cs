@@ -5,10 +5,14 @@ using UnityEngine;
 public class FireSpeedPickUp : MonoBehaviour
 {
     public FireSpeedPowerUp powerup;
+    public AudioClip pickUpAudio;
+    private AudioSource audioSource;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        // Initialize the audio source
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -18,18 +22,21 @@ public class FireSpeedPickUp : MonoBehaviour
     }
 
     public void OnTriggerEnter(Collider other)
-    {
-        // variable to store other object's PowerupController - if it has one
+    {   
+        AudioSource.PlayClipAtPoint(pickUpAudio, transform.position);
         PowerupManager powerupManager = other.GetComponent<PowerupManager>();
-
-        // If the other object has a PowerupController
         if (powerupManager != null) 
         {
-            // Add the powerup
             powerupManager.Add(powerup);
-
-            // Destroy this pickup
-            Destroy(gameObject);
+            Destroy(gameObject);      
         }
     }
+
+
 }
+/*if (audioSource != null && pickUpAudio != null)
+            {
+                audioSource.PlayClipAtPoint(pickUpAudio, transform.position); 
+                if (audioSource.isPlaying)
+                {}
+            }*/

@@ -11,11 +11,17 @@ public class GameManager : MonoBehaviour
     public GameObject tankPawnPrefab;
     public GameObject cameraPrefab;
     public GameObject aIControllerPrefab;
-    //public GameObject bossControllerPrefab;
-    //public GameObject evaderControllerPrefab;
-    //public GameObject heavyControllerPrefab;
-    //public GameObject lightControllerPrefab;
     public GameObject[] EnemiesArray;
+
+    // Game States
+    public GameObject TitleScreenStateObject;
+    public GameObject MainMenuStateObject;
+    public GameObject OptionsScreenStateObject;
+    public GameObject CreditsScreenStateObject;
+    public GameObject GameplayStateObject;
+    public GameObject GameOverScreenStateObject;
+
+
 
     //player camera offsets
     public float cameraOffsetBack;
@@ -54,6 +60,8 @@ public class GameManager : MonoBehaviour
         mapGenerator.GenerateMap();
         SpawnPlayer();
         SpawnAITanks();
+        DeactivateAllStates();
+        ActivateTitleScreen();
     }
 
     
@@ -79,6 +87,8 @@ public class GameManager : MonoBehaviour
             //spawn our pawn and connect it to our controller
             GameObject newPawnObj = Instantiate(tankPawnPrefab, spawnPoint.position, spawnPoint.rotation) as GameObject;
 
+            newPawnObj.AddComponent<NoiseMaker>();
+
             //spawn our camera behind the tank
             GameObject newCameraObj = Instantiate(cameraPrefab, spawnPoint.position + (Vector3.back * cameraOffsetBack) + (Vector3.up * cameraOffsetUp), spawnPoint.rotation) as GameObject;
 
@@ -93,26 +103,85 @@ public class GameManager : MonoBehaviour
     }
 
     public void SpawnAITanks()
-        {
-            //spawn AI Tanks
-            Transform spawnPoint = null;
-        
-            //find spawnpoints by the type
-            pawnSpawnPoints = FindObjectsByType<PawnSpawnPoint>(FindObjectsSortMode.None);
-       
-        
-            if (pawnSpawnPoints.Length > 0)
-                {
-                    //randomly select a spawnPoint
-                    spawnPoint = pawnSpawnPoints[Random.Range(0, pawnSpawnPoints.Length)].transform;
-                }
-            foreach (GameObject EnemyObject in EnemiesArray)
-            {
-                Instantiate(EnemyObject, spawnPoint.position, spawnPoint.rotation);
-                spawnPoint = pawnSpawnPoints[Random.Range(0, pawnSpawnPoints.Length)].transform;
-            }
-        }
+{
+    // Spawn AI Tanks
+    Transform spawnPoint = null;
 
+    // Find spawn points by the type
+    pawnSpawnPoints = FindObjectsByType<PawnSpawnPoint>(FindObjectsSortMode.None);
+
+    if (pawnSpawnPoints.Length > 0)
+    {
+        // Randomly select a spawnPoint
+        spawnPoint = pawnSpawnPoints[Random.Range(0, pawnSpawnPoints.Length)].transform;
+
+        foreach (GameObject EnemyObject in EnemiesArray)
+        {
+            GameObject instantiatedEnemy = Instantiate(EnemyObject, spawnPoint.position, spawnPoint.rotation);
+            AIController newAIController = instantiatedEnemy.GetComponent<AIController>();
+            Pawn newEnemyPawn = instantiatedEnemy.GetComponent<Pawn>();
+
+            if (newAIController != null && newEnemyPawn != null)
+            {
+                newAIController.pawn = newEnemyPawn;
+            }
+
+            // Select a new spawn point for the next enemy
+            spawnPoint = pawnSpawnPoints[Random.Range(0, pawnSpawnPoints.Length)].transform;
+        }
+    }
+}
+
+
+    private void DeactivateAllStates()
+    {
+        // Deactivate all Game States
+        TitleScreenStateObject.SetActive(false);
+        MainMenuStateObject.SetActive(false);
+        OptionsScreenStateObject.SetActive(false);
+        CreditsScreenStateObject.SetActive(false);
+        GameplayStateObject.SetActive(false);
+        GameOverScreenStateObject.SetActive(false);
+    }
+    
+    public void ActivateTitleScreen()
+    {
+        // Deactivate all states
+        DeactivateAllStates();
+        // Activate the title screen
+        TitleScreenStateObject.SetActive(true);
+        // Does whatever needs to be done when the title screen starts.
+    }
+
+    public void ActivateMainMenu()
+    {
+        DeactivateAllStates();
+        MainMenuStateObject.SetActive(true);
+    }
+
+    public void ActivateOptionsScreen()
+    {
+        DeactivateAllStates();
+        OptionsScreenStateObject.SetActive(true);
+    }
+
+    public void ActivateCreditsScreen()
+    {
+        DeactivateAllStates();
+        CreditsScreenStateObject.SetActive(true);
+    }
+    
+    public void ActivateGameplay()
+    {
+        DeactivateAllStates();
+        GameplayStateObject.SetActive(true);
+    }
+
+    public void ActivateGameOverScreen()
+    {
+        DeactivateAllStates();
+        GameOverScreenStateObject.SetActive(true);
+    }
 }
 
 

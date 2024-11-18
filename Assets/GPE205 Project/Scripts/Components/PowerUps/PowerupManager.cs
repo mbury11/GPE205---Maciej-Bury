@@ -7,11 +7,13 @@ public class PowerupManager : MonoBehaviour
     public List<Powerup> powerups;
     private List<Powerup> removedPowerupQueue;
     
+    
     // Start is called before the first frame update
     void Start()
     {
         powerups = new List<Powerup>();
         removedPowerupQueue = new List<Powerup>();
+        
     }
     
     // Update is called once per frame

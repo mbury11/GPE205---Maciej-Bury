@@ -7,9 +7,11 @@ public class TankShooter : Shooter
     public GameObject prefab;
     public Transform firepointTransform; //declaring firepoint transform
     
+    
     // Start is called before the first frame update
     public override void Start()
     {
+        
         GameObject newObject = Instantiate(prefab, transform.position, transform.rotation) as GameObject;
         Debug.Log(newObject.name);
     }
@@ -22,6 +24,9 @@ public class TankShooter : Shooter
     {
         //instantiate our projectile
         GameObject newShell = Instantiate(shellPrefab, firepointTransform.position, firepointTransform.rotation) as GameObject;
+        
+        
+        
         //get the damageonhit component
         DamageOnHit doh = newShell.GetComponent<DamageOnHit>();
         //if it has one..

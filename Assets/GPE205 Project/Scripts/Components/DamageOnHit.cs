@@ -6,7 +6,7 @@ public class DamageOnHit : MonoBehaviour
 {
     public float damageDone;
     public Pawn owner;
-
+    
     
     // Start is called before the first frame update
     void Start()
@@ -21,16 +21,24 @@ public class DamageOnHit : MonoBehaviour
     }
 
     public void OnTriggerEnter(Collider other)
+{
+    Health otherHealth = other.gameObject.GetComponent<Health>();
+    if (otherHealth != null)
     {
-        // get the health componenet from the game object that has the collider that we are overallping
-        Health otherHealth = other.gameObject.GetComponent<Health>();
-        //only damage if it has a health component
-        if (otherHealth != null)
-        {
-            //do damage
-            otherHealth.TakeDamage(damageDone, owner);
-        }
-        //Destroy ourselves, whether we did damage or not
+        Debug.Log($"Attempting to deal {damageDone} damage to {other.gameObject.name}");
+        otherHealth.TakeDamage(damageDone, owner);
+        Debug.Log($"{other.gameObject.name} now has {otherHealth.currentHealth} health remaining.");
+        
+        // Correctly destroy the current GameObject (the projectile)
         Destroy(gameObject);
     }
+    else
+    {
+        Debug.LogWarning($"{other.gameObject.name} does not have a Health component.");
+    }
 }
+
+
+
+}
+

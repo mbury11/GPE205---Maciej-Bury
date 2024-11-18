@@ -9,6 +9,8 @@ public class PlayerController : Controller
     public KeyCode moveBackwardKey;
     public KeyCode rotateClockwiseKey;
     public KeyCode rotateCounterClockwiseKey;
+
+    
     
     // Start is called before the first frame update
     public override void Start()
@@ -63,6 +65,25 @@ public class PlayerController : Controller
         pawn.noiseMaker.volumeDistance = 0;    
         }
     }
+
+    public override void AddToScore(int scoreToAdd)
+    {
+        score += scoreToAdd;
+    }
+
+    public override void RemoveFromScore(int scoreToRemove)
+    {
+        score -= scoreToRemove;
+    }
+
+    public override void AddToLives(int livesToAdd)
+        {
+            lives += livesToAdd;
+        }
+    public override void RemoveFromLives(int livesToRemove)
+        {
+            lives -= livesToRemove;
+        }  
 
     public void OnDestroy()
     {

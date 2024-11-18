@@ -485,7 +485,25 @@ public class AIController : Controller
 
                             //END DECISIONS
 
-                            
+                            // SCORING
+        public override void AddToScore(int scoreToAdd)
+        {
+            score += scoreToAdd;
+        } 
+
+        public override void RemoveFromScore(int scoreToRemove)
+        {
+        score -= scoreToRemove;
+        }   
+
+        public override void AddToLives(int livesToAdd)
+        {
+            lives += livesToAdd;
+        }
+        public override void RemoveFromLives(int livesToRemove)
+        {
+            lives -= livesToRemove;
+        }             
 
 
 
